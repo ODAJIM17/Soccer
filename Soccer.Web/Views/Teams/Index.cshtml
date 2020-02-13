@@ -4,38 +4,103 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+@*<link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" />*@
+@*<link rel="stylesheet" href=" https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" />*@
+    @*<link href="~/css/jquery.dataTables.min.css" rel="stylesheet" />*@
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LogoPath)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LogoPath)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+
+<div class="card border-danger">
+    <div class="card-header">
+        <div class="card-title text-danger"><h5> Teams List </h5></div>
+
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-sm table table-striped" id="TeamTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LogoPath)
+                    </th>
+                    <th>
+                        @*<a class="btn btn-sm btn-primary" asp-action="Create"><i class="fas fa-plus-circle"></i> Create New</a>*@
+                        <a href="#addTeamModal" class="btn btn-sm btn-primary" data-toggle="modal"><i class="fas fa-plus-circle"></i> Add New</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LogoPath)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm"><i class="fas fa-pencil-alt"></i> </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-success btn-sm"><i class="fas fa-list-alt"></i> </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<!--Add modal form-->
+<div id="addTeamModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" asp-controller="Teams" asp-action="Create" id="addteam">
+                <div class="modal-header">
+
+                    <h5 class="modal-title">Add Team</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" ari-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Team Name</label>
+                        <input type="text" class="form-control" required name="Name" id="Name"  maxlength="50"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Team Logo</label>
+                        <input type="text" class="form-control" name="LogoPath" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-primary" data-dismiss="modal" value="cancel" />
+                    <input type="submit" class="btn btn-success" value="Add" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    @*<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>"*@
+        @*<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>"*@
+          @*<script src="~/js/jquery.dataTables.min.js"></script>*@
+
+    <script>
+       $(document).ready(function() {
+    $('#TeamTable').DataTable( {
+        stateSave: true
+      
+    } );
+} );
+    </script>
+
+
+
 }
-    </tbody>
-</table>
+
