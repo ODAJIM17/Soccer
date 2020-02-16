@@ -1,4 +1,4 @@
-﻿@model Soccer.Web.Data.Entities.TeamEntity
+﻿@model Soccer.Web.Models.TeamViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,24 +10,22 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LogoPath" class="control-label"></label>
-                <input asp-for="LogoPath" class="form-control" />
-                <span asp-validation-for="LogoPath" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="LogoPath" />
+            <partial name="_Team" />
             <div class="form-group">
                 <button type="submit" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Save</button>
                 <a class="btn btn-success" asp-action="Index"><i class="fas fa-redo"></i> Back to List</a>
             </div>
         </form>
+    </div>
+    <div class="col-md-4">
+        @if (!string.IsNullOrEmpty(Model.LogoPath))
+        {
+            <img src="@Url.Content(Model.LogoPath)" alt="Image" style="width:250px;height:250px;max-width: 100%; height: auto;" />
+        }
     </div>
 </div>
 

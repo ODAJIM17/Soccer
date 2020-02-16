@@ -10,7 +10,7 @@ namespace Soccer.Web.Data.Entities
     {
         public int Id { get; set; }
 
-        [MaxLength(100, ErrorMessage = "The field {0} can not have more than {1} characters.")]
+        [MaxLength(100, ErrorMessage = "The {0} field can not have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is required.")]
         public string Name { get; set; }
 
@@ -19,6 +19,7 @@ namespace Soccer.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime StartDate { get; set; }
 
+        [DataType(DataType.DateTime)]
         [Display(Name = "Start Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime StartDateLocal => StartDate.ToLocalTime();
@@ -28,6 +29,7 @@ namespace Soccer.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime EndDate { get; set; }
 
+        [DataType(DataType.DateTime)]
         [Display(Name = "End Date")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime EndDateLocal => EndDate.ToLocalTime();
